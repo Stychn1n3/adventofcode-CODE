@@ -10,7 +10,15 @@ namespace adventofcode
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("test");
+
+            dayOne.dayOneMethod();
+            dayOne2.dayOneTwoMethod();
+            dayTwo.dayTwoMethod();
+            dayTwoTwo.dayTwoTwoMethod();
+            dayThree.dayThreeMethod();
+            dayThreeTwo.dayThreeTwoMethod();
+            dayFour.dayFourMethod();
+            
         }
     }
 }
