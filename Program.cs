@@ -8,17 +8,25 @@ namespace adventofcode
 {
     class Program
     {
+        static DateTime time;
         static void Main(string[] args)
         {
 
-            dayOne.dayOneMethod();
-            dayOne2.dayOneTwoMethod();
-            dayTwo.dayTwoMethod();
-            dayTwoTwo.dayTwoTwoMethod();
-            dayThree.dayThreeMethod();
-            dayThreeTwo.dayThreeTwoMethod();
-            dayFour.dayFourMethod();
-            
+            //dayOne.dayOneMethod();
+            //dayOne2.dayOnePartTwoMethod();
+            //dayTwo.dayTwoMethod();
+            //dayTwoTwo.dayTwoPartTwoMethod();
+            //dayThree.dayThreeMethod();
+            //dayThreeTwo.dayThreePartTwoMethod();
+            //dayFour.dayFourMethod();
+            //dayFive.dayFiveMethod();
+            daySix.daySixMethod();
+
+            if (time == null)
+            {
+                Console.Write("asd");
+            }
+
         }
     }
 }

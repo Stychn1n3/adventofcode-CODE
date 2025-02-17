@@ -11,7 +11,7 @@ namespace adventofcode
 {
     class dayThreeTwo
     {
-        public static void dayThreeTwoMethod()
+        public static void dayThreePartTwoMethod()
         {
             String line;
             Char delmiter = ',';

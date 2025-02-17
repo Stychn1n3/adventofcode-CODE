@@ -12,7 +12,7 @@ namespace adventofcode
     class dayOne2
     {
 
-        public static void dayOneTwoMethod()
+        public static void dayOnePartTwoMethod()
         {
             String line;
             try

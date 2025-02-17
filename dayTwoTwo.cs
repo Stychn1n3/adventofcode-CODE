@@ -10,7 +10,7 @@ namespace adventofcode
 {
     class dayTwoTwo
     {
-        public static void dayTwoTwoMethod()
+        public static void dayTwoPartTwoMethod()
         {
             String line;
             List<String> reportline = new List<String>();
