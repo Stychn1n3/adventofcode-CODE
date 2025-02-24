@@ -12,19 +12,8 @@ namespace adventofcode
     {
 
         static void Main(string[] args)
-        {
-
-            //dayOne.dayOneMethod();
-            //dayOne2.dayOnePartTwoMethod();
-            //dayTwo.dayTwoMethod();
-            //dayTwoTwo.dayTwoPartTwoMethod();
-            //dayThree.dayThreeMethod();
-            //dayThreeTwo.dayThreePartTwoMethod();
-            //dayFour.dayFourMethod();
+        { 
             dayFive.dayFiveMethod();
-            
-            //daySix.da
-            //StreamReaderService.EachLineAsList();
         }
     }
 }
