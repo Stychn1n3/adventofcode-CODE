@@ -44,16 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dayFive.cs" />
-    <Compile Include="dayFour.cs" />
-    <Compile Include="dayOne.cs" />
-    <Compile Include="daySix.cs" />
-    <Compile Include="dayThree.cs" />
-    <Compile Include="dayThreeTwo.cs" />
-    <Compile Include="dayTwo.cs" />
-    <Compile Include="dayOne2.cs" />
-    <Compile Include="dayTwoTwo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StreamReaderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,136 +1,103 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace adventofcode
 {
     class dayFive
     {
+        //non-changing vars
+        private static char delmiter = '|';
+        private static char delmiter2 = ',';
+
         public static void dayFiveMethod()
         {
-            String line;
-            List<String> reportline = new List<String>();
-            List<String> rules = new List<String>();
-            String[] pages;
-            String[] buffer;
+            List<string> reportline = new List<string>();
+            List<string> rules = new List<string>();
+            List<string> pages = new List<string>();
+
             int middlePageTotal = 0;
             int middlePageTotal2 = 0;
             int middlePageTotal3 = 0;
-            int page1;
-            int page2;
-            int errors = 1;
-            try
-            {
-                Char delmiter = '|';
-                Char delmiter2 = ',';
-                StreamReader reader = new StreamReader("dayFiveInput.txt");
-                Console.WriteLine("Start");
-                line = reader.ReadLine();
-                
 
-                while (line != null)
+            List<string> fileOutput = StreamReaderService.EachLineAsList();
+
+            //separate rules and pages
+            rules = fileOutput.Where(s => s.Contains('|')).ToList();
+            pages = fileOutput.Where(s => !s.Contains('|')).ToList();
+
+            //sort pages
+            foreach (string pageLine in pages)
+            {
+                var sortedValues = sortPages(pageLine, rules);
+
+                bool alreadyCorrect = sortedValues.Item1;
+                string[] pages2 = sortedValues.Item2;
+
+                //adds to different page totals depending on if it was already correct, the total for only correct page lines or the total of all regardless
+                if (alreadyCorrect)
                 {
-                    
-                    if (line.Contains('|'))
+                    middlePageTotal += int.Parse(pages2[pages2.Length / 2]);
+                }
+                else
+                {
+                    middlePageTotal3 += int.Parse(pages2[pages2.Length / 2]);
+                }
+
+                middlePageTotal2 += int.Parse(pages2[pages2.Length / 2]);
+            }
+
+            printResults(middlePageTotal, middlePageTotal3, middlePageTotal2);
+        }
+
+        private static void printResults(int middlePageTotal, int middlePageTotal3, int middlePageTotal2)
+        {
+            //outputs everything
+            Console.WriteLine("Already Correct Total: " + middlePageTotal);
+            Console.WriteLine("Fixed Correct Total: " + middlePageTotal3);
+            Console.WriteLine("Absolute Total: " + middlePageTotal2);
+        }
+
+        private static Tuple<bool, string[]> sortPages(string pageLine, List<string> rules)
+        {
+            string[] pages;
+            string[] buffer;
+
+            //Assumes the pages are already sorted cause 'murica
+            bool alreadyCorrect = true;
+            pages = pageLine.Split(delmiter2);
+            int errors = rules.Count;
+
+            while (errors > 0)
+            {
+                foreach (string s in rules)
+                {
+                    buffer = s.Split(delmiter);
+                    string rule1 = buffer[0];
+                    string rule2 = buffer[1];
+
+                    if (pageLine.Contains(rule1) && pageLine.Contains(rule2))
                     {
-                        rules.Add(line);
+                        if (Array.IndexOf(pages, rule1) > Array.IndexOf(pages, rule2))
+                        {
+                            pages[Array.IndexOf(pages, rule1)] = buffer[1];
+                            pages[Array.IndexOf(pages, rule2)] = buffer[0];
+                            errors--;
+                            alreadyCorrect = false;
+                        }
+                        else
+                        {
+                            errors--;
+                        }
                     }
                     else
                     {
-                        break;
+                        errors--;
                     }
-                    line = reader.ReadLine();
                 }
-                Boolean alreadyCorrect;
-                line = reader.ReadLine();
-                while (line != null)
-                {
-                    alreadyCorrect = true;
-                    pages = line.Split(delmiter2);
-                    
-                    while (errors > 0)
-                    {
-                        errors = rules.Count;
-                        foreach (String s in rules)
-                        {
-                            buffer = s.Split(delmiter);
-                            String rule1 = buffer[0];
-                            String rule2 = buffer[1];
-                            if (pages.Contains(rule1) && pages.Contains(rule2))
-                            {
-                                if (Array.IndexOf(pages, rule1) > Array.IndexOf(pages, rule2))
-                                {
-                                    pages[Array.IndexOf(pages, rule1)] = buffer[1];
-                                    pages[Array.IndexOf(pages, rule2)] = buffer[0];
-                                    errors--;
-                                    alreadyCorrect = false;
-                                }
-                                else
-                                {
-                                    errors--;
-                                }
-                            }
-                            else
-                            {
-                                errors--;
-                            }
-                        }
-
-
-                            if (alreadyCorrect == true)
-                            {
-                            foreach (String b in pages)
-                            {
-                                Console.Write(b + ",");
-                            }
-                            Console.WriteLine("Already Correct");
-                            }
-                        else
-                        {
-                            foreach (String b in pages)
-                            {
-                                Console.Write(b + ",");
-                            }
-                            Console.WriteLine("Incorrect");
-                        }
-
-
-                            Console.WriteLine();
-                        line = reader.ReadLine();
-                    }
-
-                    errors = 1;
-                    if (alreadyCorrect == true)
-                    {
-                        middlePageTotal = middlePageTotal + Int32.Parse(pages[pages.Length / 2]);
-                    }
-                    if (alreadyCorrect == false)
-                    {
-                        middlePageTotal3 = middlePageTotal3 + Int32.Parse(pages[pages.Length / 2]);
-                    }
-
-                    middlePageTotal2 = middlePageTotal2 + Int32.Parse(pages[pages.Length / 2]);
-                }
-                Console.WriteLine("Already Correct Total: " + middlePageTotal);
-                Console.WriteLine("Fixed Correct Total: " + middlePageTotal3);
-                Console.WriteLine("Absolute Total: " + middlePageTotal2);
-                reader.Close();
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executing finally block.");
-            }
-        }
-        public static int swap(int one, int two)
-        {
-            return Math.Abs(one - two);
+            return Tuple.Create(alreadyCorrect, pages);
         }
     }
 }
